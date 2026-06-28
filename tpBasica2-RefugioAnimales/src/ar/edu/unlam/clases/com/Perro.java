@@ -26,6 +26,18 @@ public class Perro extends Animal implements Adoptable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	public Tamanio getTamanio() {
+		return tamanio;
+	}
+
+
+	public void setTamanio(Tamanio tamanio) {
+		this.tamanio = tamanio;
+	}
+	
+	
 	
 	
 
