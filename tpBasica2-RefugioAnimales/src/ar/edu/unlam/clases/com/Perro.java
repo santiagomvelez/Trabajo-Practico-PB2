@@ -8,8 +8,9 @@ public class Perro extends Animal implements Adoptable {
 	private Tamanio tamanio;
 	
 	
-	public Perro(Integer codigo, String nombre, String raza, Integer edadEnMeses, Tamanio tamanio) {
-		super(codigo, nombre, raza, edadEnMeses);
+	public Perro(Integer codigo, String nombre, String raza, Integer edadEnMeses, Boolean sano, Tamanio tamanio) {
+		super(codigo, nombre, raza, edadEnMeses, sano);
+	    this.tamanio = tamanio;
 		
 	}
 

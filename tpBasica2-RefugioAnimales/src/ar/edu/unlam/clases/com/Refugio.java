@@ -9,16 +9,16 @@ public class Refugio {
 	private Integer id;
 	private String nombre;
 	private HashMap<Integer, Animal> animales;
-	private ArrayList<Adoptante>adoptantes;
-	private ArrayList<Adopcion>adopciones;
+	private HashMap<Integer, Adoptante> adoptantes;
+	private ArrayList<Adopcion> adopciones;
 	
 	
 	public Refugio(Integer id, String nombre) {
 		this.id= id;
 		this.nombre = nombre;
 		this.animales = new HashMap<>();
-		this.adoptantes=new ArrayList<Adoptante>();
-		this.adopciones=new ArrayList<Adopcion>();
+		this.adoptantes=new HashMap<>();
+		this.adopciones=new ArrayList<>();
 	}
 
 
@@ -39,23 +39,38 @@ public class Refugio {
 	}
 
 	public Boolean registrarAdoptante(Adoptante adoptante) {
-		//Si el adoptante que le paso por parámetros NO es nulll, lo registra y agrega a la colección del refugio
-		if(adoptante!=null) {
-			this.adoptantes.add(adoptante);
-			return true;
-		}
-		return false;
+
+		//registrar el adoptante en hashmap agregandole la clave y el valor
+	    if (adoptante != null) {
+	        this.adoptantes.put(adoptante.getDni(), adoptante);
+	        return true;
+	    }
+
+	    return false;
 	}
 
-	public Boolean procesarAdopcion(Integer idAdopcion, Adoptante adoptante, Animal perro) {
-		//Si los dos objetyos que se ingresan no son null
-		if(adoptante!=null && perro!=null) {
-		//Creo una adopcion con sus respectivos parámetros y la agrego a mi lista de adopciones.	
-			Adopcion adopcion=new Adopcion(idAdopcion, adoptante, perro);
-			this.adopciones.add(adopcion);
-			return true;
-		}
-		return false;
+	public Boolean procesarAdopcion(Integer idAdopcion, Adoptante adoptante, Animal animal)
+	        throws AnimalNoSanoException, AnimalNoDisponibleException {
+
+	    if (adoptante != null && animal != null) {
+
+	        if (!animal.getSano()) {
+	            throw new AnimalNoSanoException();
+	        }
+
+	        if (animal.getAdoptado()) {
+	            throw new AnimalNoDisponibleException();
+	        }
+
+	        Adopcion adopcion = new Adopcion(idAdopcion, adoptante, animal);
+	        this.adopciones.add(adopcion);
+
+	        animal.setAdoptado(true);
+
+	        return true;
+	    }
+
+	    return false;
 	}
 	
 
@@ -89,11 +104,11 @@ public class Refugio {
 	}
 	
 
-	public ArrayList<Adoptante> getAdoptantes() {
+	public HashMap<Integer, Adoptante> getAdoptantes() {
 		return adoptantes;
 	}
 
-	public void setAdoptantes(ArrayList<Adoptante> adoptantes) {
+	public void setAdoptantes(HashMap<Integer, Adoptante> adoptantes) {
 		this.adoptantes = adoptantes;
 	}
 	
