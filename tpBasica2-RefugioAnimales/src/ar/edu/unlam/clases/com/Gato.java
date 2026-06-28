@@ -5,8 +5,8 @@ import ar.edu.ulam.interfaces.com.Adoptable;
 public class Gato extends Animal implements Adoptable{
 
 	
-	public Gato(Integer codigo, String nombre, String raza, Integer edadEnMeses) {
-		super(codigo, nombre, raza, edadEnMeses);
+	public Gato(Integer codigo, String nombre, String raza, Integer edadEnMeses, Boolean sano) {
+		super(codigo, nombre, raza, edadEnMeses, sano);
 		
 	}
 

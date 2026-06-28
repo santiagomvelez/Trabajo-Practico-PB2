@@ -10,13 +10,13 @@ public abstract class  Animal {
     private Boolean adoptado;
 
 
-    public Animal(Integer codigo, String nombre, String raza, Integer edadEnMeses) {
+    public Animal(Integer codigo, String nombre, String raza, Integer edadEnMeses, Boolean sano) {
 
         this.codigo = codigo;
         this.nombre = nombre;
         this.raza = raza;
         this.edadEnMeses = edadEnMeses;
-        this.sano = false;
+        this.sano = sano;
         this.adoptado = false;
     }
 
