@@ -250,6 +250,19 @@ public class RefugioTest {
 	}
 
 	// TEST 12
-	
+	@Test
+	public void dadoQueSeBuscaUnAnimalConUnCodigoInexistenteRetornaNull() throws CapacidadRefugioExcedidaException  {
+	    
+	    Refugio refugio = new Refugio(1, "Patitas", 10);
+
+	    Animal perro = new Perro(1, "Tony", "Labrador", 3, true, Tamanio.MEDIANO);
+	    refugio.registrarAnimal(perro); // registro un animal con código 1
+
+	    Animal resultado = refugio.buscarAnimalPorCodigo(99); // busco un código que NO existe
+
+	    assertNull(resultado);
+	}
+
+
 	
 }
