@@ -91,18 +91,6 @@ public class Refugio {
 
 		return false;
 	}
-
-//	public Animal buscarAnimalPorCodigo(Integer codigo) {
-//		// Recorro todos los animales de mi HashMap
-//		for (Animal animal : animales.values()) {
-//			// Comparo el código del animal con el código buscado
-//			if (animal.getCodigo().equals(codigo)) {
-//				// Si lo encuentra devuelve el animal y sino null
-//				return animal;
-//			}
-//		}
-//		return null;
-//	}
 	
 	public Animal buscarAnimalPorCodigo(Integer codigo) {
 	    return this.animales.get(codigo);
