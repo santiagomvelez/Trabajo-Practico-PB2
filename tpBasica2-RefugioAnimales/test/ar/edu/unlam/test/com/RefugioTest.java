@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
+import ar.edu.ulam.interfaces.com.Adoptable;
 import ar.edu.unlam.clases.com.Adoptante;
 import ar.edu.unlam.clases.com.AdoptanteMenorDeEdadNopuedeAdoptarException;
 import ar.edu.unlam.clases.com.Animal;
@@ -104,6 +105,10 @@ public class RefugioTest {
 
 		// Registro animal
 		refugio.registrarAnimal(perro);
+		
+		// Verifico con la interfaz si el animal cumple los requisitos
+	    Adoptable adoptable = (Adoptable) perro;
+	    assertTrue(adoptable.cumpleRequisitosAdopcion());
 
 		// Registro adopcion
 		Boolean resultado = refugio.procesarAdopcion(1, adoptante, perro);
@@ -121,9 +126,10 @@ public class RefugioTest {
 
 		Refugio refugio = new Refugio(1, "Patitas", 20);
 
-		Adoptante adoptante = new Adoptante(46952188, "Nazarena", "Molina", 30);
+		Adoptante adoptante = new Adoptante(12345678, "Mia", "Perez", 19);
 
-		Animal perro = new Perro(1, "Tony", "Labrador", 3, false, Tamanio.MEDIANO);
+		// sano=true pero solo 1 mes, no cumple requisitos por edad
+		Animal perro = new Perro(1, "Tony", "Labrador", 1, false, Tamanio.MEDIANO);
 		perro.setSano(false);
 
 		refugio.procesarAdopcion(1, adoptante, perro);
@@ -137,7 +143,7 @@ public class RefugioTest {
 
 		Refugio refugio = new Refugio(1, "Patitas", 20);
 
-		Adoptante adoptante = new Adoptante(46952188, "Nazarena", "Molina", 30);
+		Adoptante adoptante = new Adoptante(12345678, "Mia", "Perez", 19);
 
 		Animal perro = new Perro(1, "Tony", "Labrador", 3, true, Tamanio.MEDIANO);
 		perro.setSano(true);

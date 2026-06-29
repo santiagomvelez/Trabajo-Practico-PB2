@@ -11,14 +11,14 @@ public class Gato extends Animal implements Adoptable {
 
 	@Override
 	public Boolean cumpleRequisitosAdopcion() {
-		// TODO Auto-generated method stub
-		return null;
+		 return this.getSano() && this.getEdadEnMeses() > 2;
 	}
 
 	@Override
 	public String getDescripcionAdopcion() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Gato - Nombre: " + getNombre() 
+        + ", Raza: " + getRaza() 
+        + ", Edad: " + getEdadEnMeses() + " meses";
 	}
 
 }

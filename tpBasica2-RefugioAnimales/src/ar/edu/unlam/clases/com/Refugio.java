@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
+import ar.edu.ulam.interfaces.com.Adoptable;
+
 public class Refugio {
 
 	private Integer id;
@@ -60,15 +62,20 @@ public class Refugio {
 
 		if (adoptante != null && animal != null) {
 
-			if (!animal.getSano()) {
-				throw new AnimalNoSanoException();
-			}
-
+			// primero verifica si ya fue adoptado
 			if (animal.getAdoptado()) {
 				throw new AnimalNoDisponibleException();
 			}
 
-			// Exception de el adoptante es menor de edad
+			// dsp verifica si cumple requisitos (sano y edad)
+			if (animal instanceof Adoptable) {
+				Adoptable adoptable = (Adoptable) animal;
+				if (!adoptable.cumpleRequisitosAdopcion()) {
+					throw new AnimalNoSanoException();
+				}
+			}
+
+			// y por ultimo verifica la edad del adoptante
 			if (adoptante.getEdad() < 18) {
 				throw new AdoptanteMenorDeEdadNopuedeAdoptarException(
 						"El adoptante es menor de edad y no puede adoptar");

@@ -15,14 +15,15 @@ public class Perro extends Animal implements Adoptable {
 
 	@Override
 	public Boolean cumpleRequisitosAdopcion() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getSano() && this.getEdadEnMeses() > 2;
 	}
 
 	@Override
 	public String getDescripcionAdopcion() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Perro - Nombre: " + getNombre() 
+        + ", Raza: " + getRaza() 
+        + ", Edad: " + getEdadEnMeses() + " meses"
+        + ", Tamaño: " + tamanio;
 	}
 
 	public Tamanio getTamanio() {
