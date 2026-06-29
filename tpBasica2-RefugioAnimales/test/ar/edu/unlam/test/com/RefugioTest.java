@@ -2,12 +2,17 @@ package ar.edu.unlam.test.com;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
 import org.junit.Test;
 
 import ar.edu.unlam.clases.com.Adoptante;
 import ar.edu.unlam.clases.com.Animal;
 import ar.edu.unlam.clases.com.AnimalNoDisponibleException;
 import ar.edu.unlam.clases.com.AnimalNoSanoException;
+import ar.edu.unlam.clases.com.CapacidadRefugioExcedidaException;
 import ar.edu.unlam.clases.com.Gato;
 import ar.edu.unlam.clases.com.Perro;
 import ar.edu.unlam.clases.com.Refugio;
@@ -18,10 +23,10 @@ public class RefugioTest {
 	
 	// TEST 1
 	@Test
-	public void dadoQueExisteUnRefugioSePuedeRegistrarUnAnimal() {
+	public void dadoQueExisteUnRefugioSePuedeRegistrarUnAnimal()  throws CapacidadRefugioExcedidaException{
 		
 		// Instancio el objeto y creo un refugio
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 		
 		// instancio la clase Perro que es una hija de clase Animal
 		Animal perro = new Perro(1, "Tony", "Labrador", 3, true, Tamanio.MEDIANO);
@@ -37,10 +42,10 @@ public class RefugioTest {
 	
 	// TEST 2
 	@Test 
-	public void dadoQueExisteUnRefugioNoSePuedenRegistrarDosAnimalesConElMismoCodigo() {
+	public void dadoQueExisteUnRefugioNoSePuedenRegistrarDosAnimalesConElMismoCodigo()  throws CapacidadRefugioExcedidaException{
 		
 		// Instancio el objeto y creo un refugio
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 		
 		/* instancio la clase Perro que es una hija de clase Animal
 		 *  Lo hago dos veces con el mismo id para verificarlo que no se pueda registrar
@@ -61,9 +66,9 @@ public class RefugioTest {
 	
 	// TEST 3
 	@Test
-	public void dadoQueExisteUnRefugioSePuedeRegistrarUnAdoptante() {
+	public void dadoQueExisteUnRefugioSePuedeRegistrarUnAdoptante()  throws CapacidadRefugioExcedidaException {
 		// Instancio el objeto y creo un refugio
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 	
 		// Instancio el objeto y creo un adoptante
 		Adoptante adoptante=new Adoptante(46952188, "Nazarena", "Molina", 30);
@@ -79,9 +84,9 @@ public class RefugioTest {
 	// TEST 4
 	@Test
 	public void dadoQueExisteUnRefugioSePuedeProcesarUnaAdopcion() 
-			throws AnimalNoSanoException, AnimalNoDisponibleException {
+			throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException {
 		// Instancio el objeto y creo un refugio
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 		
 		// Instancio el objeto y creo un adoptante
 		Adoptante adoptante=new Adoptante(46952188, "Nazarena", "Molina", 30);
@@ -106,9 +111,9 @@ public class RefugioTest {
 	// TEST 5
 	@Test(expected = AnimalNoSanoException.class)
 	public void dadoQueUnAnimalNoEstaSanoNoPuedeSerAdoptado()
-	        throws AnimalNoSanoException, AnimalNoDisponibleException {
+	        throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException {
 		
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 		
 		Adoptante adoptante = new Adoptante(46952188, "Nazarena", "Molina", 30);
 		
@@ -122,9 +127,9 @@ public class RefugioTest {
 	//TEST 6
 	@Test(expected = AnimalNoDisponibleException.class)
 	public void dadoQueUnAnimalYaFueAdoptadoNoPuedeVolverASerAdoptado()
-	        throws AnimalNoSanoException, AnimalNoDisponibleException {
+	        throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException {
 
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 
 	    Adoptante adoptante = new Adoptante(46952188, "Nazarena", "Molina", 30);
 
@@ -136,13 +141,54 @@ public class RefugioTest {
 	}
 	
 	
+	//TEST 7
+	@Test (expected = CapacidadRefugioExcedidaException.class)
+	public void dadoQueElRefugioEstaLlenoNoSePuedeRegistrarUnAnimalMas() throws CapacidadRefugioExcedidaException  {
+		
+		Refugio refugio = new Refugio(1, "Patitas", 1);
+
+	    
+	    Animal perro = new Perro(1,"Tony", "Labrador", 3, true, Tamanio.MEDIANO);
+	    Animal gato = new Gato(2, "Bola de nieve", "Mestizo", 12, true);	
+	    
+	    refugio.registrarAnimal(perro);
+	    refugio.registrarAnimal(gato); //el gato no se registraria por que excede la capacidad del refugio
+	                                  //el test da verde ya que espera la excepcion
+		
+		
+	}
 	
+	//TEST 8
+	@Test
+	public void dadoQueExistenVariosAnimalesSeObtienenOrdenadosPorCodigo() throws CapacidadRefugioExcedidaException{
+		
+		Refugio refugio = new Refugio(1, "Patitas", 10);
+
+	    // registro a propósito DESORDENADOS
+	    Animal gato = new Gato(3, "Bola de nieve", "Mestizo", 12, true);
+	    Animal perro = new Perro(1, "Tony", "Labrador", 3, true, Tamanio.MEDIANO);
+	    Animal otroPerro = new Perro(2, "Rex", "Mestizo", 5, true, Tamanio.GRANDE);
+
+	    refugio.registrarAnimal(gato);       // código 3
+	    refugio.registrarAnimal(perro);      // código 1
+	    refugio.registrarAnimal(otroPerro);  // código 2
+
+	    // TreeSet ordenado
+	    TreeSet<Animal> animalesOrdenados = refugio.obtenerAnimalesOrdenadosPorCodigo();
+
+	    // convierto a List para poder chequear por posición (0, 1, 2)
+	    List<Animal> listaOrdenada = new ArrayList<>(animalesOrdenados);
+	   
+	    assertEquals(perro.getCodigo(), listaOrdenada.get(0).getCodigo());
+	    assertEquals(otroPerro.getCodigo(), listaOrdenada.get(1).getCodigo());
+	    assertEquals(gato.getCodigo(), listaOrdenada.get(2).getCodigo());
+	}
 	
 	// TEST 10
 	@Test
-	public void  dadoQueExisteUnAnimalRegistradoSeLoPuedeBuscarPorCodigo() {
+	public void  dadoQueExisteUnAnimalRegistradoSeLoPuedeBuscarPorCodigo()  throws CapacidadRefugioExcedidaException {
 		// Instancio el objeto y creo un refugio
-		Refugio refugio = new Refugio(1, "Patitas");
+		Refugio refugio = new Refugio(1, "Patitas", 20);
 		Integer codigoAnimal=1;
 		
 		// Instancio la clase Gato que es una hija de clase Animal

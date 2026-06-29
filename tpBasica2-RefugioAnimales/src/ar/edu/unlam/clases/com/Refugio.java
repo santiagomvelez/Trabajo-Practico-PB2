@@ -2,20 +2,24 @@ package ar.edu.unlam.clases.com;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 
 public class Refugio {
 	
 	private Integer id;
 	private String nombre;
-	private HashMap<Integer, Animal> animales;
+	private Integer capacidadMaxima;
+	private Map<Integer, Animal> animales;
 	private HashMap<Integer, Adoptante> adoptantes;
 	private ArrayList<Adopcion> adopciones;
 	
 	
-	public Refugio(Integer id, String nombre) {
+	public Refugio(Integer id, String nombre, Integer capacidadMaxima) {
 		this.id= id;
 		this.nombre = nombre;
+		this.capacidadMaxima = capacidadMaxima;
 		this.animales = new HashMap<>();
 		this.adoptantes=new HashMap<>();
 		this.adopciones=new ArrayList<>();
@@ -23,7 +27,7 @@ public class Refugio {
 
 
 
-	public Boolean registrarAnimal(Animal animal) {
+	public Boolean registrarAnimal(Animal animal) throws CapacidadRefugioExcedidaException {
 		// si no cargamos ningun dato en animal devuelve falso
 		if(animal == null) {
 			return false;
@@ -32,6 +36,11 @@ public class Refugio {
 		if (this.animales.containsKey(animal.getCodigo())) {
 			return false;
 		}
+		
+		if (this.animales.size() >= this.capacidadMaxima) {
+			throw new CapacidadRefugioExcedidaException("El refugio está lleno, no se puede registrar un animal más");
+		}
+
 		
 		// si ninguno de los dos casos anteriores no pasa se registra al animal y devuelve verdadero
 		this.animales.put(animal.getCodigo(), animal);
@@ -86,6 +95,13 @@ public class Refugio {
 		return null;
 	}
 	
+	public TreeSet<Animal> obtenerAnimalesOrdenadosPorCodigo() {
+	    TreeSet<Animal> animalesOrdenados = new TreeSet<>(); 
+	    animalesOrdenados.addAll(this.animales.values()); //agregue los animales del HashMap al TreeSet de animalesOrdenados
+	    return animalesOrdenados;
+	}
+
+	
 	
 	public Integer getId() {
 		return id;
@@ -95,13 +111,17 @@ public class Refugio {
 		return nombre;
 	}
 	
-	public HashMap<Integer, Animal> getAnimales() {
+
+	public Map<Integer, Animal> getAnimales() {
 		return animales;
 	}
 
-	public void setAnimales(HashMap<Integer, Animal> animales) {
+
+
+	public void setAnimales(Map<Integer, Animal> animales) {
 		this.animales = animales;
 	}
+	
 	
 
 	public HashMap<Integer, Adoptante> getAdoptantes() {
@@ -119,7 +139,10 @@ public class Refugio {
 	public void setAdopciones(ArrayList<Adopcion> adopciones) {
 		this.adopciones = adopciones;
 	}
-	
+
+
+
+
 	
 	
 	

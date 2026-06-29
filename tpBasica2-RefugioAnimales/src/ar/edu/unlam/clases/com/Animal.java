@@ -1,6 +1,6 @@
 package ar.edu.unlam.clases.com;
 
-public abstract class  Animal {
+public abstract class  Animal implements Comparable<Animal> {
 
     private Integer codigo;
     private String nombre;
@@ -20,7 +20,12 @@ public abstract class  Animal {
         this.adoptado = false;
     }
 
-
+    //lor ordena de manera ASC
+    @Override
+    public int compareTo(Animal otro) {
+        return Integer.compare(this.codigo, otro.codigo);
+    }
+    
     public Integer getEdadEnMeses() {
         return edadEnMeses;
     }
