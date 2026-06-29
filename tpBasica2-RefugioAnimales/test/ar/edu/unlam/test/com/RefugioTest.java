@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.junit.Test;
 
 import ar.edu.unlam.clases.com.Adoptante;
+import ar.edu.unlam.clases.com.AdoptanteMenorDeEdadNopuedeAdoptarException;
 import ar.edu.unlam.clases.com.Animal;
 import ar.edu.unlam.clases.com.AnimalNoDisponibleException;
 import ar.edu.unlam.clases.com.AnimalNoSanoException;
@@ -84,7 +85,7 @@ public class RefugioTest {
 	// TEST 4
 	@Test
 	public void dadoQueExisteUnRefugioSePuedeProcesarUnaAdopcion() 
-			throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException {
+			throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException, AdoptanteMenorDeEdadNopuedeAdoptarException {
 		// Instancio el objeto y creo un refugio
 		Refugio refugio = new Refugio(1, "Patitas", 20);
 		
@@ -111,7 +112,7 @@ public class RefugioTest {
 	// TEST 5
 	@Test(expected = AnimalNoSanoException.class)
 	public void dadoQueUnAnimalNoEstaSanoNoPuedeSerAdoptado()
-	        throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException {
+	        throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException, AdoptanteMenorDeEdadNopuedeAdoptarException {
 		
 		Refugio refugio = new Refugio(1, "Patitas", 20);
 		
@@ -127,7 +128,7 @@ public class RefugioTest {
 	//TEST 6
 	@Test(expected = AnimalNoDisponibleException.class)
 	public void dadoQueUnAnimalYaFueAdoptadoNoPuedeVolverASerAdoptado()
-	        throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException {
+	        throws AnimalNoSanoException, AnimalNoDisponibleException, CapacidadRefugioExcedidaException, AdoptanteMenorDeEdadNopuedeAdoptarException {
 
 		Refugio refugio = new Refugio(1, "Patitas", 20);
 
@@ -183,6 +184,31 @@ public class RefugioTest {
 	    assertEquals(otroPerro.getCodigo(), listaOrdenada.get(1).getCodigo());
 	    assertEquals(gato.getCodigo(), listaOrdenada.get(2).getCodigo());
 	}
+	
+	
+	// TEST 9
+	
+	@Test (expected = AdoptanteMenorDeEdadNopuedeAdoptarException.class)
+	public void dadoQueElAdoptanteEsMenorDeEdadNoSePuedeAdoptar() throws CapacidadRefugioExcedidaException, AnimalNoSanoException, AnimalNoDisponibleException, AdoptanteMenorDeEdadNopuedeAdoptarException {
+		//Instancio un  refugio
+		Refugio refugio = new Refugio(1, "Patitas", 10 );
+		
+		// Instancio un animal 
+		Animal perro = new Perro(1, "Tony" , "Labrador", 3 , true, Tamanio.MEDIANO);
+		
+		// Instancio un adoptante menor de edad
+		Adoptante adoptante = new Adoptante(45767632, "Santiago", "Velez", 16);
+		
+		// Se registra el animal y el adoptante siendo menor de edad
+		refugio.registrarAnimal(perro);
+		refugio.registrarAdoptante(adoptante);
+		
+		// lanza exception porque el adoptante es menor de edad
+		refugio.procesarAdopcion(1, adoptante, perro);	
+	}
+	
+	
+	
 	
 	// TEST 10
 	@Test

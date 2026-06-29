@@ -59,7 +59,7 @@ public class Refugio {
 	}
 
 	public Boolean procesarAdopcion(Integer idAdopcion, Adoptante adoptante, Animal animal)
-	        throws AnimalNoSanoException, AnimalNoDisponibleException {
+	        throws AnimalNoSanoException, AnimalNoDisponibleException, AdoptanteMenorDeEdadNopuedeAdoptarException {
 
 	    if (adoptante != null && animal != null) {
 
@@ -69,6 +69,11 @@ public class Refugio {
 
 	        if (animal.getAdoptado()) {
 	            throw new AnimalNoDisponibleException();
+	        }
+	        
+	        // Exception de el adoptante es menor de edad
+	        if (adoptante.getEdad() < 18) {
+	        	throw new AdoptanteMenorDeEdadNopuedeAdoptarException("El adoptante es menor de edad y no puede adoptar");
 	        }
 
 	        Adopcion adopcion = new Adopcion(idAdopcion, adoptante, animal);
