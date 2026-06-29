@@ -1,7 +1,7 @@
 package ar.edu.unlam.clases.com;
 
-import ar.edu.ulam.interfaces.com.Adoptable;
 import ar.edu.unlam.enums.com.Tamanio;
+import ar.edu.unlam.interfaces.com.Adoptable;
 
 public class Perro extends Animal implements Adoptable {
 

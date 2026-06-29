@@ -8,7 +8,6 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import ar.edu.ulam.interfaces.com.Adoptable;
 import ar.edu.unlam.clases.com.Adoptante;
 import ar.edu.unlam.clases.com.AdoptanteMenorDeEdadNopuedeAdoptarException;
 import ar.edu.unlam.clases.com.Animal;
@@ -19,6 +18,7 @@ import ar.edu.unlam.clases.com.Gato;
 import ar.edu.unlam.clases.com.Perro;
 import ar.edu.unlam.clases.com.Refugio;
 import ar.edu.unlam.enums.com.Tamanio;
+import ar.edu.unlam.interfaces.com.Adoptable;
 
 public class RefugioTest {
 
@@ -258,7 +258,7 @@ public class RefugioTest {
 	    Animal perro = new Perro(1, "Tony", "Labrador", 3, true, Tamanio.MEDIANO);
 	    refugio.registrarAnimal(perro); // registro un animal con código 1
 
-	    Animal resultado = refugio.buscarAnimalPorCodigo(99); // busco un código que NO existe
+	    Animal resultado = refugio.buscarAnimalPorCodigo(5); // busco un código que NO existe
 
 	    assertNull(resultado);
 	}

@@ -1,4 +1,4 @@
-package ar.edu.ulam.interfaces.com;
+package ar.edu.unlam.interfaces.com;
 
 public interface Adoptable {
 
