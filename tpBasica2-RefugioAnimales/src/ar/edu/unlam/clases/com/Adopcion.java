@@ -1,12 +1,13 @@
 package ar.edu.unlam.clases.com;
+
 public class Adopcion {
-	
+
 	private Integer idAdopcion;
 	private Adoptante adoptante;
 	private Animal animal;
-	
-	public Adopcion (Integer id, Adoptante adoptante, Animal animal) {
-		this.idAdopcion = id; 
+
+	public Adopcion(Integer id, Adoptante adoptante, Animal animal) {
+		this.idAdopcion = id;
 		this.adoptante = adoptante;
 		this.animal = animal;
 	}
@@ -34,9 +35,5 @@ public class Adopcion {
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
 	}
-	
-	
-	
-	
 
 }

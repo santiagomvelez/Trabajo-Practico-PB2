@@ -2,15 +2,13 @@ package ar.edu.unlam.clases.com;
 
 import ar.edu.ulam.interfaces.com.Adoptable;
 
-public class Gato extends Animal implements Adoptable{
+public class Gato extends Animal implements Adoptable {
 
-	
 	public Gato(Integer codigo, String nombre, String raza, Integer edadEnMeses, Boolean sano) {
 		super(codigo, nombre, raza, edadEnMeses, sano);
-		
+
 	}
 
-	
 	@Override
 	public Boolean cumpleRequisitosAdopcion() {
 		// TODO Auto-generated method stub
@@ -22,7 +20,5 @@ public class Gato extends Animal implements Adoptable{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
 }

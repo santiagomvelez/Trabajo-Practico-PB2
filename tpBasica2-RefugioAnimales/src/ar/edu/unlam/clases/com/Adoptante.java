@@ -1,12 +1,12 @@
 package ar.edu.unlam.clases.com;
 
 public class Adoptante {
-	
+
 	private Integer dni;
 	private String nombre;
 	private String apellido;
 	private Integer edad;
-	
+
 	public Adoptante(Integer dni, String nombre, String apellido, Integer edad) {
 		this.dni = dni;
 		this.nombre = nombre;
@@ -33,7 +33,5 @@ public class Adoptante {
 	public String getApellido() {
 		return apellido;
 	}
-	
-	
-	
+
 }
